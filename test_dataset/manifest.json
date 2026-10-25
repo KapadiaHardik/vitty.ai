@@ -1,0 +1,727 @@
+{
+  "total_cases": 60,
+  "cases": [
+    {
+      "case_id": "TC_01",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_01_INV_Acme_Industrial_Supplies.pdf",
+      "po_file": "TC_01_PO_Acme_Industrial_Supplies.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean 2-way match for Acme Industrial Supplies (zero findings expected)."
+    },
+    {
+      "case_id": "TC_02",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_02_INV_TechCore_Solutions_Ltd.pdf",
+      "po_file": "TC_02_PO_TechCore_Solutions_Ltd.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean 2-way match for TechCore Solutions Ltd (zero findings expected)."
+    },
+    {
+      "case_id": "TC_03",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_03_INV_Apex_Logistics_LLP.pdf",
+      "po_file": "TC_03_PO_Apex_Logistics_LLP.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean 2-way match for Apex Logistics LLP (zero findings expected)."
+    },
+    {
+      "case_id": "TC_04",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_04_INV_Zenith_Office_Systems.pdf",
+      "po_file": "TC_04_PO_Zenith_Office_Systems.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean 2-way match for Zenith Office Systems (zero findings expected)."
+    },
+    {
+      "case_id": "TC_05",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_05_INV_BrightStar_Electricals.pdf",
+      "po_file": "TC_05_PO_BrightStar_Electricals.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean 2-way match for BrightStar Electricals (zero findings expected)."
+    },
+    {
+      "case_id": "TC_06",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_06_INV_Precision_Tools_India.pdf",
+      "po_file": "TC_06_PO_Precision_Tools_India.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean 2-way match for Precision Tools India (zero findings expected)."
+    },
+    {
+      "case_id": "TC_07",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_07_INV_Global_Horizon_Consulting.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean standalone invoice for Global Horizon Consulting (zero findings expected)."
+    },
+    {
+      "case_id": "TC_08",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_08_INV_Alpha_Security_Services.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean standalone invoice for Alpha Security Services (zero findings expected)."
+    },
+    {
+      "case_id": "TC_09",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_09_INV_BlueWave_Digital_Media.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean standalone invoice for BlueWave Digital Media (zero findings expected)."
+    },
+    {
+      "case_id": "TC_10",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_10_INV_Silverline_Facility_Management.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean standalone invoice for Silverline Facility Management (zero findings expected)."
+    },
+    {
+      "case_id": "TC_11",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_11_INV_CyberShield_Infotech.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean standalone invoice for CyberShield Infotech (zero findings expected)."
+    },
+    {
+      "case_id": "TC_12",
+      "category": "A_CLEAN_COMPLIANT",
+      "invoice_file": "TC_12_INV_Prime_Packaging_Corp.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Clean standalone invoice for Prime Packaging Corp (zero findings expected)."
+    },
+    {
+      "case_id": "TC_13",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_13_INV_Delta_Fabrication_Works.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (10000.0) + Tax (1800.0) != Printed Total (12800.0). Total arithmetic overbilled by 1,000"
+    },
+    {
+      "case_id": "TC_14",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_14_INV_Kavina_Infra_Solutions.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (45000.0) + Tax (8100.0) != Printed Total (45000.0). Tax omitted from printed grand total"
+    },
+    {
+      "case_id": "TC_15",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_15_INV_Omega_Electronic_Spares.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (20000.0) + Tax (3600.0) != Printed Total (23000.0). Transposition error underbilled by 600"
+    },
+    {
+      "case_id": "TC_16",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_16_INV_Rapid_Freight_Carriers.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (8500.0) + Tax (1530.0) != Printed Total (10500.0). Incorrect round-up by 470"
+    },
+    {
+      "case_id": "TC_17",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_17_INV_Quantum_Polymer_Pipes.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (64000.0) + Tax (11520.0) != Printed Total (72000.0). Subtotal addition mismatch by 3,520"
+    },
+    {
+      "case_id": "TC_18",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_18_INV_Starlight_Paints_LLP.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (50000.0) + Tax (5000.0) != Printed Total (59000.0). Tax computed at 10% but total printed as 59,000"
+    },
+    {
+      "case_id": "TC_19",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_19_INV_Everest_Safety_Equipment.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (12000.0) + Tax (0.0) != Printed Total (14160.0). Tax printed as 0 but added to grand total"
+    },
+    {
+      "case_id": "TC_20",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_20_INV_Vertex_Chemical_Reagents.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (30000.0) + Tax (5400.0) != Printed Total (34400.0). Underbilled by 1,000 on total"
+    },
+    {
+      "case_id": "TC_21",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_21_INV_Falcon_CNC_Components.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (15000.0) + Tax (2700.0) != Printed Total (18200.0). Arithmetic error variance of 500"
+    },
+    {
+      "case_id": "TC_22",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_22_INV_Pinnacle_Solar_Panels.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (90000.0) + Tax (16200.0) != Printed Total (105000.0). Total under-sums tax by 1,200"
+    },
+    {
+      "case_id": "TC_23",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_23_INV_Horizon_Paper_Mill.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (28000.0) + Tax (5040.0) != Printed Total (33500.0). Arithmetic total mismatch of 460"
+    },
+    {
+      "case_id": "TC_24",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_24_INV_Crestview_Bearings_Ltd.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (7200.0) + Tax (1296.0) != Printed Total (8200.0). Arithmetic total under by 296"
+    },
+    {
+      "case_id": "TC_25",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_25_INV_Dynamic_Valve_Controls.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (120000.0) + Tax (21600.0) != Printed Total (140000.0). Under-sums total by 1,600"
+    },
+    {
+      "case_id": "TC_26",
+      "category": "B_TAX_AND_ARITHMETIC",
+      "invoice_file": "TC_26_INV_Titanium_Fasteners_Co.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "Arithmetic mismatch: Subtotal (35000.0) + Tax (6300.0) != Printed Total (42000.0). Overbilled arithmetic total by 700"
+    },
+    {
+      "case_id": "TC_27",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_27_INV_Aura_Tech_Solutions.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "invoice_number"
+      ],
+      "description": "Missing mandatory compliance fields: Missing invoice_number."
+    },
+    {
+      "case_id": "TC_28",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_28_INV_Metro_Electrical_Works.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "invoice_date"
+      ],
+      "description": "Missing mandatory compliance fields: Missing invoice_date."
+    },
+    {
+      "case_id": "TC_29",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_29_INV_Anonymous_Vendor.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "supplier_name"
+      ],
+      "description": "Missing mandatory compliance fields: Missing supplier_name."
+    },
+    {
+      "case_id": "TC_30",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_30_INV_United_Packaging_Systems.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "total_amount"
+      ],
+      "description": "Missing mandatory compliance fields: Missing total_amount."
+    },
+    {
+      "case_id": "TC_31",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_31_INV_Nova_Engineering_Labs.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 2,
+      "expected_findings": [
+        "MISSING_FIELD",
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "invoice_number",
+        "invoice_date"
+      ],
+      "description": "Missing mandatory compliance fields: Missing invoice_number and invoice_date."
+    },
+    {
+      "case_id": "TC_32",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_32_INV_Anonymous_Vendor.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 2,
+      "expected_findings": [
+        "MISSING_FIELD",
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "supplier_name",
+        "invoice_number"
+      ],
+      "description": "Missing mandatory compliance fields: Missing supplier_name and invoice_number."
+    },
+    {
+      "case_id": "TC_33",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_33_INV_Swift_Global_Logistics.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 2,
+      "expected_findings": [
+        "MISSING_FIELD",
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "invoice_date",
+        "total_amount"
+      ],
+      "description": "Missing mandatory compliance fields: Missing invoice_date and total_amount."
+    },
+    {
+      "case_id": "TC_34",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_34_INV_Imperial_Hardware_Works.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "invoice_number"
+      ],
+      "description": "Missing mandatory compliance fields: Quotation layout missing invoice_number."
+    },
+    {
+      "case_id": "TC_35",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_35_INV_Anonymous_Vendor.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "supplier_name"
+      ],
+      "description": "Missing mandatory compliance fields: Anonymous bill missing supplier_name."
+    },
+    {
+      "case_id": "TC_36",
+      "category": "C_MISSING_FIELDS",
+      "invoice_file": "TC_36_INV_Vanguard_Fire_Safety.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "MISSING_FIELD"
+      ],
+      "missing_fields": [
+        "total_amount"
+      ],
+      "description": "Missing mandatory compliance fields: Incomplete receipt missing total_amount."
+    },
+    {
+      "case_id": "TC_37",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_37_INV_Aero_Precision_Components.pdf",
+      "po_file": "TC_37_PO_Aero_Precision_Components.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Invoice Total (55k) > PO Total (50k)."
+    },
+    {
+      "case_id": "TC_38",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_38_INV_Bluestone_Heavy_Equipment.pdf",
+      "po_file": "TC_38_PO_Bluestone_Heavy_Equipment.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Invoice Total (118k) > PO Total (94.4k)."
+    },
+    {
+      "case_id": "TC_39",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_39_INV_Catalyst_Scientific_Corp.pdf",
+      "po_file": "TC_39_PO_Catalyst_Scientific_Corp.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Invoice Total (32k) > PO Total (28k)."
+    },
+    {
+      "case_id": "TC_40",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_40_INV_Diamond_Drill_Technologies.pdf",
+      "po_file": "TC_40_PO_Diamond_Drill_Technologies.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Invoice Total (88k) > PO Total (75k)."
+    },
+    {
+      "case_id": "TC_41",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_41_INV_Apex_Global_Trading_FZE.pdf",
+      "po_file": "TC_41_PO_Apex_Industrial_Supplies_Ltd.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "SUPPLIER_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Supplier name mismatch between entities."
+    },
+    {
+      "case_id": "TC_42",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_42_INV_Matrix_Software_Inc.pdf",
+      "po_file": "TC_42_PO_Matrix_Hardware_Corp.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "SUPPLIER_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Sister company supplier mismatch."
+    },
+    {
+      "case_id": "TC_43",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_43_INV_Delta_Cloud_Solutions.pdf",
+      "po_file": "TC_43_PO_Delta_Telecom_Networks.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "SUPPLIER_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Vendor legal name mismatch."
+    },
+    {
+      "case_id": "TC_44",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_44_INV_Krypton_Metal_Alloys.pdf",
+      "po_file": "TC_44_PO_Krypton_Metal_Alloys.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "PO_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: PO number digit transposition."
+    },
+    {
+      "case_id": "TC_45",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_45_INV_Nexus_Network_Systems.pdf",
+      "po_file": "TC_45_PO_Nexus_Network_Systems.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "PO_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Wrong contract PO reference cited."
+    },
+    {
+      "case_id": "TC_46",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_46_INV_Orbit_Hydraulics_LLP.pdf",
+      "po_file": "TC_46_PO_Orbit_Hydraulics_LLP.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "PO_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Suffix mismatch on PO number."
+    },
+    {
+      "case_id": "TC_47",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_47_INV_Sigma_Instruments_India.pdf",
+      "po_file": "TC_47_PO_Sigma_Sensors_Ltd.pdf",
+      "has_po": true,
+      "expected_findings_count": 2,
+      "expected_findings": [
+        "SUPPLIER_MISMATCH",
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Compound: Supplier AND Total Mismatch."
+    },
+    {
+      "case_id": "TC_48",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_48_INV_Omega_Cable_Industries.pdf",
+      "po_file": "TC_48_PO_Omega_Cable_Industries.pdf",
+      "has_po": true,
+      "expected_findings_count": 2,
+      "expected_findings": [
+        "PO_MISMATCH",
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Compound: PO number AND Total Mismatch."
+    },
+    {
+      "case_id": "TC_49",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_49_INV_Vector_Automation_Systems.pdf",
+      "po_file": "TC_49_PO_Vector_Automation_Systems.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Under-billing partial match."
+    },
+    {
+      "case_id": "TC_50",
+      "category": "D_2WAY_MISMATCHES",
+      "invoice_file": "TC_50_INV_Zephyr_Air_Filtration.pdf",
+      "po_file": "TC_50_PO_Zephyr_Air_Filtration.pdf",
+      "has_po": true,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "2-Way Mismatch: Quantity variance leading to total mismatch."
+    },
+    {
+      "case_id": "TC_51",
+      "category": "E_DUPLICATES_BASE",
+      "invoice_file": "TC_51_INV_Vortex_Technologies.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Original submission for Vortex Technologies (#INV-VORTEX-901). Base run."
+    },
+    {
+      "case_id": "TC_52",
+      "category": "E_DUPLICATES",
+      "invoice_file": "TC_52_INV_Vortex_Technologies_DUP.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "DUPLICATE_INVOICE"
+      ],
+      "description": "Duplicate invoice detection: Repeated submission of invoice #INV-VORTEX-901 by Vortex Technologies."
+    },
+    {
+      "case_id": "TC_53",
+      "category": "E_DUPLICATES_BASE",
+      "invoice_file": "TC_53_INV_Skyline_Freight_Carriers.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Original submission for Skyline Freight Carriers (#INV-SKY-4412). Base run."
+    },
+    {
+      "case_id": "TC_54",
+      "category": "E_DUPLICATES",
+      "invoice_file": "TC_54_INV_Skyline_Freight_Carriers_DUP.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "DUPLICATE_INVOICE"
+      ],
+      "description": "Duplicate invoice detection: Repeated submission of invoice #INV-SKY-4412 by Skyline Freight Carriers."
+    },
+    {
+      "case_id": "TC_55",
+      "category": "E_DUPLICATES_BASE",
+      "invoice_file": "TC_55_INV_Omni_Clean_Logistics.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Original submission for Omni Clean Logistics (#INV-OMNI-1008). Base run."
+    },
+    {
+      "case_id": "TC_56",
+      "category": "E_DUPLICATES",
+      "invoice_file": "TC_56_INV_Omni_Clean_Logistics_DUP.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "DUPLICATE_INVOICE"
+      ],
+      "description": "Duplicate invoice detection: Repeated submission of invoice #INV-OMNI-1008 by Omni Clean Logistics."
+    },
+    {
+      "case_id": "TC_57",
+      "category": "F_MULTI_CURRENCY",
+      "invoice_file": "TC_57_INV_CloudMatrix_USD.pdf",
+      "po_file": "TC_57_PO_CloudMatrix_USD.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Multi-currency clean USD match vs PO (zero findings expected)."
+    },
+    {
+      "case_id": "TC_58",
+      "category": "F_MULTI_CURRENCY",
+      "invoice_file": "TC_58_INV_EuroTech_EUR.pdf",
+      "po_file": "TC_58_PO_EuroTech_EUR.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Multi-currency clean EUR match vs PO (zero findings expected)."
+    },
+    {
+      "case_id": "TC_59",
+      "category": "F_MULTI_CURRENCY",
+      "invoice_file": "TC_59_INV_SiliconValley_USD.pdf",
+      "po_file": null,
+      "has_po": false,
+      "expected_findings_count": 1,
+      "expected_findings": [
+        "TOTAL_MISMATCH"
+      ],
+      "description": "USD invoice arithmetic error: Subtotal (3000) + Tax (300) != Printed Total (3500)."
+    },
+    {
+      "case_id": "TC_60",
+      "category": "F_MULTI_LINE_COMPLEX",
+      "invoice_file": "TC_60_INV_ApexEnterprise_Complex.pdf",
+      "po_file": "TC_60_PO_ApexEnterprise_Complex.pdf",
+      "has_po": true,
+      "expected_findings_count": 0,
+      "expected_findings": [],
+      "description": "Multi-line complex infrastructure procurement (zero findings expected)."
+    }
+  ]
+}

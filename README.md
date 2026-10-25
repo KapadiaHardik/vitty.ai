@@ -1,78 +1,65 @@
-# [VItty.ai](http://VItty.ai) — 3 Sprint PoC Plan
+# [Vitty.ai](http://Vitty.ai)
 
+Multimodal AI work engine for financial, accounting, legal and BFSI firms.
 
+## Architecture
 
-**Goal:** Turn financial documents into structured, searchable data.
+PDF
 
-- FastAPI setup
-- Document upload
-- Docling parsing / OCR
-- Document classification
-- Metadata extraction
-- Summarization
-- Local file + JSON storage
+→ Docling
 
-**Output:**  
-`PDF → Parsed Text → Classification → Metadata → Stored Document`
+→ Multimodal document representation
 
----
+→ OpenAI embeddings
 
-## Sprint 2 — RAG & AI Workspace
+→ FAISS
 
-**Goal:** Make the system understand and search documents.
+→ Retrieval
 
-- Document chunking
-- Ollama embeddings
-- FAISS vector store
-- RAG pipeline
-- AI Chat
-- Semantic document search
-- Source/citation retrieval
-- AI document summarization
+→ GPT-5.4 mini
 
-**Output:**  
-`Documents → FAISS → RAG → Q&A / Search`
+→ LangGraph workflow
 
----
+→ Human review
 
+## Models
 
+Classification:
 
-## Sprint 3 — AI Actions & Agentic Workflow
+GPT-5.4 nano
 
-**Goal:** Move from "AI answers" to "AI performs work."
+Reasoning:
 
-- AI drafting
-  - Client email
-  - Notice reply
-  - Follow-up
-- LangGraph integration
-- Document Agent
-- Workflow Agent
-- Task generation
-- Human approval step
-- End-to-end demo workflow
+GPT-5.4 mini
 
-**Output:**
+Vision:
 
-```text
-Document Upload
-      ↓
-AI Understands
-      ↓
-Identifies Required Action
-      ↓
-Creates Task
-      ↓
-Generates Draft
-      ↓
-Human Approval
+GPT-5.4 mini
 
-```
+Embeddings:
 
+text-embedding-3-small
 
+## Setup
 
-### Final PoC
+Create virtual environment:
 
-**Upload → Understand → Search → Chat → Draft → Workflow**
+python -m venv .venv
 
-This is the complete demo you can take to the first **5 CA/financial firms**.
+Activate it.
+
+Install:
+
+pip install -r requirements.txt
+
+Create `.env`:
+
+OPENAI_API_KEY=your_key
+
+Run:
+
+uvicorn app.main:app --reload
+
+Open:
+
+[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)

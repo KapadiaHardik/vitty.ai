@@ -1,0 +1,18 @@
+services:
+  postgres:
+    build:
+      context: ./infra
+      dockerfile: Dockerfile.postgres
+    container_name: vitty-postgres
+    environment:
+      POSTGRES_USER: vitty
+      POSTGRES_PASSWORD: vitty_password
+      POSTGRES_DB: vitty_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/init-pgvector.sh:/docker-entrypoint-initdb.d/init-pgvector.sh
+
+volumes:
+  postgres_data:

@@ -1,0 +1,37 @@
+# Virtual environments
+vir_vitty/
+.venv/
+venv/
+ENV/
+
+# Environment variables & secrets (keep .env.example)
+.env
+.env.*
+.env.local
+!.env.example
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Document storage & uploads
+storage/
+**/storage/
+/tmp/
+
+# Frontend / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+node_modules/
+.next/
+*.tsbuildinfo
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

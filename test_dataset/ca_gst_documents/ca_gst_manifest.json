@@ -1,0 +1,245 @@
+{
+  "generated_at": "2026-10-19T12:46:43.396712",
+  "total_documents": 29,
+  "ca_firm": "M/s Kapadia & Associates, Chartered Accountants  |  ICAI Reg. 112345W  |  Mumbai",
+  "fiscal_year": "2024-25",
+  "documents": [
+    {
+      "doc_id": "G3B-001",
+      "type": "GSTR-3B",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "period": "Apr",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G3B-001_gstr3b_Mehta_Text_Apr.pdf"
+    },
+    {
+      "doc_id": "G3B-002",
+      "type": "GSTR-3B",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G3B-002_gstr3b_Mehta_Text_Oct.pdf"
+    },
+    {
+      "doc_id": "G3B-003",
+      "type": "GSTR-3B",
+      "firm": "Sharma Electronics Ltd",
+      "period": "Apr",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G3B-003_gstr3b_Sharma_Ele_Apr.pdf"
+    },
+    {
+      "doc_id": "G3B-004",
+      "type": "GSTR-3B",
+      "firm": "Sharma Electronics Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G3B-004_gstr3b_Sharma_Ele_Oct.pdf"
+    },
+    {
+      "doc_id": "G3B-005",
+      "type": "GSTR-3B",
+      "firm": "Patel Pharma Pvt Ltd",
+      "period": "Jul",
+      "errors_injected": true,
+      "error_type": "ITC_over_claim",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G3B-005_gstr3b_ERROR_Patel_Phar.pdf"
+    },
+    {
+      "doc_id": "G1-006",
+      "type": "GSTR-1",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G1-006_gstr1_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "G1-007",
+      "type": "GSTR-1",
+      "firm": "Sharma Electronics Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G1-007_gstr1_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "G1-008",
+      "type": "GSTR-1",
+      "firm": "Patel Pharma Pvt Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G1-008_gstr1_Patel_Phar.pdf"
+    },
+    {
+      "doc_id": "G1-009",
+      "type": "GSTR-1",
+      "firm": "Gupta Auto Components Ltd",
+      "period": "Jan",
+      "errors_injected": true,
+      "error_type": "IGST_CGST_split_error",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\G1-009_gstr1_ERROR_Gupta_Auto.pdf"
+    },
+    {
+      "doc_id": "ITC-010",
+      "type": "GSTR-2B_Recon",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\ITC-010_gstr2b_recon_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "ITC-011",
+      "type": "GSTR-2B_Recon",
+      "firm": "Sharma Electronics Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\ITC-011_gstr2b_recon_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "ITC-012",
+      "type": "GSTR-2B_Recon",
+      "firm": "Patel Pharma Pvt Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\ITC-012_gstr2b_recon_Patel_Phar.pdf"
+    },
+    {
+      "doc_id": "ITC-013",
+      "type": "GSTR-2B_Recon",
+      "firm": "Krishnan IT Services Ltd",
+      "period": "Jan",
+      "errors_injected": true,
+      "error_type": "ITC_mismatch_vendor",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\ITC-013_gstr2b_recon_ERROR_Krishnan_I.pdf"
+    },
+    {
+      "doc_id": "EW-014",
+      "type": "eWay_Bill_Register",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\EW-014_eway_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "EW-015",
+      "type": "eWay_Bill_Register",
+      "firm": "Sharma Electronics Ltd",
+      "period": "Oct",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\EW-015_eway_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "EW-016",
+      "type": "eWay_Bill_Register",
+      "firm": "Patel Pharma Pvt Ltd",
+      "period": "Jul",
+      "errors_injected": true,
+      "error_type": "expired_ewb_in_transit",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\EW-016_eway_ERROR_Patel_Phar.pdf"
+    },
+    {
+      "doc_id": "TDS-017",
+      "type": "Form_26AS",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\TDS-017_form26as_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "TDS-018",
+      "type": "Form_26AS",
+      "firm": "Sharma Electronics Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\TDS-018_form26as_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "TDS-019",
+      "type": "Form_26AS",
+      "firm": "Patel Pharma Pvt Ltd",
+      "errors_injected": true,
+      "error_type": "unmatched_TDS_Q3",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\TDS-019_form26as_Patel_Phar.pdf"
+    },
+    {
+      "doc_id": "TDS-020",
+      "type": "Form_16A",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "deductor": "Alpha Corp Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\TDS-020_form16a_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "TDS-021",
+      "type": "Form_16A",
+      "firm": "Sharma Electronics Ltd",
+      "deductor": "Beta Holdings Ltd",
+      "errors_injected": true,
+      "error_type": "TDS_not_deposited_Q2",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\TDS-021_form16a_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "AUD-022",
+      "type": "Trial_Balance",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-022_trial_balance_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "AUD-023",
+      "type": "Trial_Balance",
+      "firm": "Sharma Electronics Ltd",
+      "errors_injected": true,
+      "error_type": "TB_does_not_tally",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-023_trial_balance_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "AUD-024",
+      "type": "Trial_Balance",
+      "firm": "Patel Pharma Pvt Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-024_trial_balance_Patel_Phar.pdf"
+    },
+    {
+      "doc_id": "AUD-025",
+      "type": "Audit_Memo",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "errors_injected": false,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-025_audit_memo_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "AUD-026",
+      "type": "GSTR-9_Recon",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-026_gstr9_recon_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "AUD-027",
+      "type": "GSTR-9_Recon",
+      "firm": "Sharma Electronics Ltd",
+      "errors_injected": true,
+      "error_type": "turnover_ITC_mismatch",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-027_gstr9_recon_Sharma_Ele.pdf"
+    },
+    {
+      "doc_id": "AUD-028",
+      "type": "Cash_Flow",
+      "firm": "Mehta Textiles Pvt Ltd",
+      "errors_injected": false,
+      "error_type": null,
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-028_cash_flow_Mehta_Text.pdf"
+    },
+    {
+      "doc_id": "AUD-029",
+      "type": "Cash_Flow",
+      "firm": "Sharma Electronics Ltd",
+      "errors_injected": true,
+      "error_type": "cash_balance_mismatch",
+      "path": "C:\\Users\\hardi\\OneDrive\\Desktop\\vitty.ai\\test_dataset\\ca_gst_documents\\AUD-029_cash_flow_Sharma_Ele.pdf"
+    }
+  ]
+}
