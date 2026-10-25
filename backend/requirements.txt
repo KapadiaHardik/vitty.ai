@@ -4,10 +4,12 @@ python-multipart
 pydantic
 pydantic-settings
 python-dotenv
-sqlalchemy
+sqlalchemy[asyncio]
+greenlet
 alembic
 asyncpg
 psycopg2-binary
+aiofiles
 pgvector
 minio
 pyjwt
