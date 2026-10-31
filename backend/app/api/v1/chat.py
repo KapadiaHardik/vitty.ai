@@ -1,3 +1,4 @@
+import logging
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
@@ -7,6 +8,7 @@ from app.services.retrieval import search_similar_chunks, build_rag_context
 from app.services.llm import generate_completion
 from app.api.v1.documents import get_current_user
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 RAG_PROMPT_TEMPLATE = """You are Vitty AI, an intelligent document assistant for financial auditors and accountants.
@@ -43,12 +45,16 @@ async def ask_question(
     # 2. Build context from chunks
     context = build_rag_context(chunks)
 
-    # 3. Generate grounded answer via Ollama with low-latency settings
+    # 3. Generate grounded answer via cloud LLM
     prompt = RAG_PROMPT_TEMPLATE.format(
         context=context,
         question=request.question,
     )
-    answer = await generate_completion(prompt, max_tokens=250, temperature=0.1, think=False)
+    try:
+        answer = await generate_completion(prompt, max_tokens=300, temperature=0.1, think=False)
+    except Exception as e:
+        logger.exception(f"Error during LLM answer generation: {e}")
+        answer = f"I retrieved your document, but encountered an error contacting the AI model: {str(e)}"
 
     # 4. Build source references
     sources = [

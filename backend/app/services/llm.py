@@ -15,7 +15,7 @@ ollama_client = AsyncClient(host=settings.OLLAMA_BASE_URL)
 async def generate_embedding(text: str) -> List[float]:
     """
     Generate embeddings for text using the configured provider:
-    - 'gemini': Google text-embedding-004 (768 dimensions)
+    - 'gemini': Google gemini-embedding-001 (768 dimensions via outputDimensionality)
     - 'openai': OpenAI text-embedding-3-small (with 768 dimensions)
     - 'ollama': local nomic-embed-text (768 dimensions)
     """
@@ -26,14 +26,30 @@ async def generate_embedding(text: str) -> List[float]:
         if not api_key:
             raise ValueError("GEMINI_API_KEY must be set when EMBEDDING_PROVIDER is 'gemini'")
         
-        model_name = settings.EMBEDDING_MODEL or "text-embedding-004"
+        # Default to the active gemini-embedding-001 model
+        model_name = settings.EMBEDDING_MODEL or "gemini-embedding-001"
+        if model_name in ("text-embedding-004", "nomic-embed-text", "llama3"):
+            model_name = "gemini-embedding-001"
+        
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:embedContent?key={api_key}"
         payload = {
             "model": f"models/{model_name}",
-            "content": {"parts": [{"text": text}]}
+            "content": {"parts": [{"text": text}]},
+            "outputDimensionality": settings.EMBEDDING_DIMENSIONS or 768,
         }
         async with httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.post(url, json=payload)
+            if resp.status_code != 200:
+                logger.error(f"Gemini embedding error ({resp.status_code}): {resp.text}")
+                # If configured model fails, attempt fallback to gemini-embedding-001
+                if model_name != "gemini-embedding-001":
+                    fallback_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key={api_key}"
+                    fallback_payload = {
+                        "model": "models/gemini-embedding-001",
+                        "content": {"parts": [{"text": text}]},
+                        "outputDimensionality": settings.EMBEDDING_DIMENSIONS or 768,
+                    }
+                    resp = await client.post(fallback_url, json=fallback_payload)
             resp.raise_for_status()
             data = resp.json()
             return data["embedding"]["values"]
@@ -59,6 +75,83 @@ async def generate_embedding(text: str) -> List[float]:
         return response["embedding"]
 
 
+async def generate_embeddings_batch(texts: List[str], batch_size: int = 30) -> List[List[float]]:
+    """
+    Generate embeddings for a list of texts in fast batches:
+    - On Gemini: uses single-roundtrip batchEmbedContents
+    - On OpenAI: embeds multiple texts in a single request
+    - On Ollama: embeds texts sequentially
+    """
+    if not texts:
+        return []
+
+    provider = (settings.EMBEDDING_PROVIDER or "ollama").lower()
+
+    if provider == "gemini":
+        api_key = settings.GEMINI_API_KEY
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY must be set when EMBEDDING_PROVIDER is 'gemini'")
+        
+        model_name = settings.EMBEDDING_MODEL or "gemini-embedding-001"
+        if model_name in ("text-embedding-004", "nomic-embed-text", "llama3"):
+            model_name = "gemini-embedding-001"
+
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:batchEmbedContents?key={api_key}"
+        all_embeddings: List[List[float]] = []
+
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            for idx in range(0, len(texts), batch_size):
+                chunk_slice = texts[idx:idx + batch_size]
+                requests_payload = [
+                    {
+                        "model": f"models/{model_name}",
+                        "content": {"parts": [{"text": t}]},
+                        "outputDimensionality": settings.EMBEDDING_DIMENSIONS or 768,
+                    }
+                    for t in chunk_slice
+                ]
+                resp = await client.post(url, json={"requests": requests_payload})
+                if resp.status_code == 200:
+                    data = resp.json()
+                    for item in data.get("embeddings", []):
+                        all_embeddings.append(item["values"])
+                else:
+                    logger.warning(f"Batch embed failed ({resp.status_code}): {resp.text}. Falling back to single embeds...")
+                    for t in chunk_slice:
+                        try:
+                            emb = await generate_embedding(t)
+                            all_embeddings.append(emb)
+                        except Exception as e:
+                            logger.error(f"Single embed fallback error: {e}")
+                            all_embeddings.append([0.0] * (settings.EMBEDDING_DIMENSIONS or 768))
+
+        return all_embeddings
+
+    elif provider == "openai":
+        api_key = settings.OPENAI_API_KEY
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY must be set when EMBEDDING_PROVIDER is 'openai'")
+        client = AsyncOpenAI(api_key=api_key)
+        all_embeddings = []
+        for idx in range(0, len(texts), batch_size):
+            chunk_slice = texts[idx:idx + batch_size]
+            resp = await client.embeddings.create(
+                model=settings.EMBEDDING_MODEL or "text-embedding-3-small",
+                input=chunk_slice,
+                dimensions=settings.EMBEDDING_DIMENSIONS or 768,
+            )
+            all_embeddings.extend([d.embedding for d in resp.data])
+        return all_embeddings
+
+    else:
+        # Ollama sequential
+        all_embeddings = []
+        for t in texts:
+            emb = await generate_embedding(t)
+            all_embeddings.append(emb)
+        return all_embeddings
+
+
 async def generate_completion(
     prompt: str,
     max_tokens: int = 300,
@@ -68,8 +161,8 @@ async def generate_completion(
 ) -> str:
     """
     Generate text completion using the configured provider:
-    - 'groq': Ultra fast cloud LLM (e.g. llama-3.3-70b-versatile, llama-3.1-8b-instant)
-    - 'gemini': Google Gemini API (e.g. gemini-2.0-flash, gemini-1.5-flash)
+    - 'groq': Ultra fast cloud LLM (e.g. qwen/qwen3.8-27b, openai/gpt-oss-120b)
+    - 'gemini': Google Gemini API
     - 'openai': OpenAI API (e.g. gpt-4o-mini)
     - 'ollama': Local Ollama (e.g. llama3, qwen2.5)
     """
@@ -84,8 +177,13 @@ async def generate_completion(
             api_key=api_key,
             base_url="https://api.groq.com/openai/v1",
         )
+        # Select active Groq model; fallback from deprecated llama-3.3-70b-versatile
+        model = settings.LLM_MODEL or "qwen/qwen3.8-27b"
+        if "llama-3.3-70b-versatile" in model:
+            model = "qwen/qwen3.8-27b"
+
         kwargs = {
-            "model": settings.LLM_MODEL or "llama-3.3-70b-versatile",
+            "model": model,
             "messages": [{"role": "user", "content": prompt}],
             "max_tokens": max_tokens,
             "temperature": temperature,
@@ -93,15 +191,21 @@ async def generate_completion(
         if json_mode:
             kwargs["response_format"] = {"type": "json_object"}
 
-        response = await client.chat.completions.create(**kwargs)
-        return (response.choices[0].message.content or "").strip()
+        try:
+            response = await client.chat.completions.create(**kwargs)
+            return (response.choices[0].message.content or "").strip()
+        except Exception as e:
+            # Automatic fallback to qwen/qwen3.8-27b if the requested model doesn't exist
+            logger.warning(f"Groq generation failed with model {model}: {e}. Retrying with qwen/qwen3.8-27b...")
+            kwargs["model"] = "qwen/qwen3.8-27b"
+            response = await client.chat.completions.create(**kwargs)
+            return (response.choices[0].message.content or "").strip()
 
     elif provider == "gemini":
         api_key = settings.GEMINI_API_KEY
         if not api_key:
             raise ValueError("GEMINI_API_KEY must be set when LLM_PROVIDER is 'gemini'")
         
-        # Gemini provides OpenAI-compatible endpoint
         client = AsyncOpenAI(
             api_key=api_key,
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/",

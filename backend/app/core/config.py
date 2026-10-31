@@ -18,16 +18,16 @@ class Settings(BaseSettings):
     STORAGE_DIR: str = "./storage/documents"
 
     # LLM
-    LLM_PROVIDER: str = "ollama"  # ollama | groq | gemini | openai
-    LLM_MODEL: str = "llama3"
+    LLM_PROVIDER: str = "groq"  # ollama | groq | gemini | openai
+    LLM_MODEL: str = "qwen/qwen3.8-27b"
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     GROQ_API_KEY: Optional[str] = None
     GEMINI_API_KEY: Optional[str] = None
     OPENAI_API_KEY: Optional[str] = None
 
     # Embeddings
-    EMBEDDING_PROVIDER: str = "ollama"  # ollama | gemini | openai
-    EMBEDDING_MODEL: str = "nomic-embed-text"
+    EMBEDDING_PROVIDER: str = "gemini"  # ollama | gemini | openai
+    EMBEDDING_MODEL: str = "gemini-embedding-001"
     EMBEDDING_DIMENSIONS: int = 768
 
     # CORS

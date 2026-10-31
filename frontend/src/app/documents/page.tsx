@@ -77,8 +77,9 @@ export default function DocumentsPage() {
     try {
       const res = await askQuestion(userMsg);
       setChatHistory(prev => [...prev, { role: 'ai', text: res.answer, sources: res.sources }]);
-    } catch (err) {
-      setChatHistory(prev => [...prev, { role: 'ai', text: "Error connecting to AI backend." }]);
+    } catch (err: any) {
+      const msg = err?.message || "Error connecting to AI backend.";
+      setChatHistory(prev => [...prev, { role: 'ai', text: msg }]);
     } finally {
       setIsTyping(false);
     }

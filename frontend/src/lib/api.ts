@@ -30,7 +30,10 @@ export async function askQuestion(question: string) {
     body: JSON.stringify({ question }),
   });
   
-  if (!res.ok) throw new Error('Failed to ask question');
+  if (!res.ok) {
+    const errBody = await res.json().catch(() => null);
+    throw new Error(errBody?.detail || `Error from backend (${res.status})`);
+  }
   return res.json();
 }
 
