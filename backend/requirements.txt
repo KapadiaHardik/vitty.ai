@@ -24,3 +24,4 @@ groq
 google-genai
 openai
 httpx
+openpyxl
