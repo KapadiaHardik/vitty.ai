@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, MessageSquare, CheckSquare } from "lucide-react";
+import { Sparkles, MessageSquare, CheckSquare, Layers } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -19,6 +19,12 @@ export default function Navbar() {
       href: "/workflows",
       icon: CheckSquare,
       active: pathname.startsWith("/workflows"),
+    },
+    {
+      name: "GST Reconciliation",
+      href: "/gst-reconciliation",
+      icon: Layers,
+      active: pathname.startsWith("/gst-reconciliation"),
     },
   ];
 

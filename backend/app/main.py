@@ -7,7 +7,7 @@ from app.core.config import get_settings
 from app.core.logging import setup_logging
 from app.core.database import engine, Base
 import app.models.domain  # ensures all models register with Base.metadata
-from app.api.v1 import health, documents, chat, workflows
+from app.api.v1 import health, documents, chat, workflows, gst_reconciliation
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -62,6 +62,7 @@ app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 app.include_router(documents.router, prefix="/api/v1/documents", tags=["Documents"])
 app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
 app.include_router(workflows.router, prefix="/api/v1/workflows", tags=["Workflows"])
+app.include_router(gst_reconciliation.router, prefix="/api/v1/gst-reconciliation", tags=["GST Reconciliation"])
 
 
 @app.get("/")
