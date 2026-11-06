@@ -1,0 +1,10 @@
+GSTIN of supplier,Trade/Legal name,Invoice number,Invoice type,Invoice Date,Invoice Value,Place of supply,Taxable Value,Integrated Tax,Central Tax,State/UT Tax,Cess
+27AAACR1234A1Z1,Reliance Infocomm Ltd,INV-2024-001,Regular,05-04-2024,118000,27-Maharashtra,100000,0,9000,9000,0
+29AABCT5678B1Z2,Tata Consultancy Services,TCS/0091,Regular,12-04-2024,59000,29-Karnataka,50000,9000,0,0,0
+07AAAAA0000A1Z5,Delhi Logistics Hub,DLH-7781,Regular,15-04-2024,23600,07-Delhi,20000,3600,0,0,0
+24AAACB9999C1Z3,Gujarat Steel Traders,INV-2024-45,Regular,18-04-2024,354000,24-Gujarat,300000,54000,0,0,0
+33AAACI4444D1Z4,Chennai Auto Spares,CAS/8892A,Regular,20-04-2024,17700,33-Tamil Nadu,15000,2700,0,0,0
+27AAACP8888E1Z9,Pune Precision Tools,PPT-1044,Regular,22-04-2024,53100,27-Maharashtra,45000,0,4050,4050,0
+27AABCM3333F1Z6,Metro Packagers Mumbai,MPM-302,Regular,24-04-2024,29500,27-Maharashtra,25000,0,2250,2250,0
+27AABCH1111G1Z8,Horizon Cloud Solutions,HCS-9910,Regular,26-04-2024,14160,27-Maharashtra,12000,0,1080,1080,0
+27AAACR1234A1Z1,Reliance Infocomm Ltd,CRN-005,Credit Note,28-04-2024,-11800,27-Maharashtra,-10000,0,-900,-900,0

@@ -25,6 +25,10 @@ async def lifespan(app: FastAPI):
             await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
             # Auto-create tables on clean cloud DBs
             await conn.run_sync(Base.metadata.create_all)
+            try:
+                await conn.execute(text("ALTER TABLE gst_normalized_invoices ALTER COLUMN pos TYPE VARCHAR(100);"))
+            except Exception as alt_err:
+                logger.debug(f"pos column alter skipped or already updated: {alt_err}")
         logger.info("Database initialized successfully.")
     except Exception as e:
         logger.warning(f"Database auto-initialization check skipped/failed: {e}")

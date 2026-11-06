@@ -180,12 +180,15 @@ def normalize_record(raw_record: Dict[str, Any]) -> Dict[str, Any]:
 
     # 2. Supplier Name
     raw_name = raw_record.get("supplier_name")
-    supplier_name = str(raw_name).strip() if raw_name else None
+    supplier_name = str(raw_name).strip()[:255] if raw_name else None
 
     # 3. Invoice Number
     inv_raw, inv_norm = normalize_invoice_number(raw_record.get("invoice_number"))
     if not inv_norm:
         errors.append("Invoice number is missing or empty")
+
+    inv_raw = inv_raw[:100] if inv_raw else None
+    inv_norm = inv_norm[:100] if inv_norm else None
 
     # 4. Invoice Date
     inv_date, date_err = parse_date(raw_record.get("invoice_date"))
@@ -227,7 +230,7 @@ def normalize_record(raw_record: Dict[str, Any]) -> Dict[str, Any]:
 
     # 7. POS
     pos_val = raw_record.get("pos")
-    pos = str(pos_val).strip() if pos_val else None
+    pos = str(pos_val).strip()[:100] if pos_val else None
 
     is_valid = len(errors) == 0
 

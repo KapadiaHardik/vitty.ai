@@ -5,6 +5,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
+from app.core.database import async_session_factory
+
 from app.models.domain import (
     GSTReconciliationRun,
     GSTRunStatus,
@@ -229,12 +231,22 @@ async def execute_gst_reconciliation(run_id: UUID, session: AsyncSession) -> Non
 
     except Exception as e:
         logger.exception(f"GST Reconciliation Run {run_id} failed: {e}")
-        run.status = GSTRunStatus.FAILED
-        run.error_message = str(e)[:500]
-        audit = GSTReviewAudit(
-            run_id=run.id,
-            user_id=run.user_id,
-            action=f"Reconciliation failed: {str(e)[:200]}"
-        )
-        session.add(audit)
-        await session.commit()
+        try:
+            await session.rollback()
+        except Exception:
+            pass
+        try:
+            async with async_session_factory() as err_session:
+                err_run = await err_session.get(GSTReconciliationRun, run_id)
+                if err_run:
+                    err_run.status = GSTRunStatus.FAILED
+                    err_run.error_message = str(e)[:500]
+                    audit = GSTReviewAudit(
+                        run_id=run_id,
+                        user_id=err_run.user_id,
+                        action=f"Reconciliation failed: {str(e)[:200]}"
+                    )
+                    err_session.add(audit)
+                    await err_session.commit()
+        except Exception as persist_err:
+            logger.error(f"Failed to persist failure status for run {run_id}: {persist_err}")

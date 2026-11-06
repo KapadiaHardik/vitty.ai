@@ -233,7 +233,7 @@ class GSTNormalizedInvoice(Base):
     sgst = Column(Numeric(14, 2), default=0.00, nullable=False)
     cess = Column(Numeric(14, 2), default=0.00, nullable=False)
     invoice_total = Column(Numeric(14, 2), default=0.00, nullable=False)
-    pos = Column(String(10), nullable=True)
+    pos = Column(String(100), nullable=True)
 
     # Source Line Traceability
     source_file = Column(String(255), nullable=True)
