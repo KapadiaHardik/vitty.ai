@@ -1,5 +1,6 @@
 import os
 import aiofiles
+from datetime import datetime, timezone, timedelta
 from uuid import UUID
 from decimal import Decimal
 from typing import List, Optional
@@ -153,6 +154,14 @@ async def create_reconciliation_run(
         action="Initiated GST reconciliation run."
     )
     db.add(audit)
+
+    # Clean up preview Document records so they don't pollute the Knowledge Base
+    try:
+        await db.delete(gstr2b_doc)
+        await db.delete(pr_doc)
+    except Exception:
+        pass
+
     await db.commit()
 
     # Enqueue background reconciliation
@@ -191,8 +200,20 @@ async def list_reconciliation_runs(
     res = await db.execute(stmt)
     runs = res.scalars().all()
 
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(minutes=5)
+    has_timeout_updates = False
+
     items = []
     for r in runs:
+        # Prevent stuck state: if run has been in PENDING, PARSING, or MATCHING for > 5 minutes, mark as FAILED
+        if r.status in (GSTRunStatus.PENDING, GSTRunStatus.PARSING, GSTRunStatus.MATCHING) and r.created_at:
+            created_tz = r.created_at if r.created_at.tzinfo else r.created_at.replace(tzinfo=timezone.utc)
+            if created_tz < cutoff:
+                r.status = GSTRunStatus.FAILED
+                r.error_message = "Reconciliation timed out or worker process was interrupted. Please re-run."
+                has_timeout_updates = True
+
         invoices = r.invoices or []
         books_count = sum(1 for i in invoices if i.source_type == GSTSourceType.PURCHASE_REGISTER)
         gstr2b_count = sum(1 for i in invoices if i.source_type == GSTSourceType.GSTR_2B)
@@ -226,6 +247,9 @@ async def list_reconciliation_runs(
                 pending_reviews=pending,
             )
         )
+
+    if has_timeout_updates:
+        await db.commit()
 
     return items
 
@@ -321,6 +345,15 @@ async def get_reconciliation_run(
     if not run or run.user_id != user.id:
         raise HTTPException(status_code=404, detail="Reconciliation run not found.")
 
+    # Check timeout for stuck states
+    if run.status in (GSTRunStatus.PENDING, GSTRunStatus.PARSING, GSTRunStatus.MATCHING) and run.created_at:
+        now = datetime.now(timezone.utc)
+        created_tz = run.created_at if run.created_at.tzinfo else run.created_at.replace(tzinfo=timezone.utc)
+        if created_tz < now - timedelta(minutes=5):
+            run.status = GSTRunStatus.FAILED
+            run.error_message = "Reconciliation timed out or worker process was interrupted. Please re-run."
+            await db.commit()
+
     metrics = compute_run_metrics(run.invoices or [], run.matches or [])
 
     gstr2b_doc = next((d for d in run.documents if d.source_type == GSTSourceType.GSTR_2B), None)
@@ -337,6 +370,39 @@ async def get_reconciliation_run(
         gstr2b_filename=gstr2b_doc.filename if gstr2b_doc else None,
         purchase_register_filename=pr_doc.filename if pr_doc else None,
     )
+
+
+@router.delete("/runs/{run_id}")
+async def delete_reconciliation_run(
+    run_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Permanently delete a reconciliation run and all associated cascade data.
+    """
+    stmt = (
+        select(GSTReconciliationRun)
+        .options(selectinload(GSTReconciliationRun.documents))
+        .where(GSTReconciliationRun.id == run_id)
+    )
+    res = await db.execute(stmt)
+    run = res.scalar_one_or_none()
+
+    if not run or run.user_id != user.id:
+        raise HTTPException(status_code=404, detail="Reconciliation run not found.")
+
+    # Remove stored source files from disk if present
+    for doc in run.documents or []:
+        if doc.original_path and os.path.exists(doc.original_path):
+            try:
+                os.remove(doc.original_path)
+            except Exception:
+                pass
+
+    await db.delete(run)
+    await db.commit()
+    return {"success": True, "deleted_id": str(run_id)}
 
 
 @router.get("/runs/{run_id}/discrepancies", response_model=List[DiscrepancyDetailResponse])
@@ -579,6 +645,15 @@ async def export_reconciliation_excel(
 
     if not run or run.user_id != user.id:
         raise HTTPException(status_code=404, detail="Reconciliation run not found.")
+
+    # Check timeout for stuck states
+    if run.status in (GSTRunStatus.PENDING, GSTRunStatus.PARSING, GSTRunStatus.MATCHING) and run.created_at:
+        now = datetime.now(timezone.utc)
+        created_tz = run.created_at if run.created_at.tzinfo else run.created_at.replace(tzinfo=timezone.utc)
+        if created_tz < now - timedelta(minutes=5):
+            run.status = GSTRunStatus.FAILED
+            run.error_message = "Reconciliation timed out or worker process was interrupted. Please re-run."
+            await db.commit()
 
     metrics = compute_run_metrics(run.invoices or [], run.matches or [])
     excel_stream = generate_reconciliation_excel_report(

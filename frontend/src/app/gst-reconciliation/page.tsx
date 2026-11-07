@@ -21,12 +21,14 @@ import {
   FileCheck,
   Eye,
   Check,
+  Trash2,
 } from "lucide-react";
 import Link from "next/link";
 import {
   fetchGSTRuns,
   createGSTRun,
   uploadGSTFilePreview,
+  deleteGSTRun,
 } from "@/lib/api";
 
 interface GSTRunItem {
@@ -86,6 +88,17 @@ export default function GSTReconciliationPage() {
       console.error("Failed to load GST reconciliation runs", err);
     } finally {
       setLoadingRuns(false);
+    }
+  };
+
+  const handleDeleteRun = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to permanently delete this reconciliation run?")) return;
+    try {
+      await deleteGSTRun(id);
+      await loadRuns();
+    } catch (err: any) {
+      alert(err?.message || "Failed to delete reconciliation run");
     }
   };
 
@@ -297,12 +310,21 @@ export default function GSTReconciliationPage() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <Link
-                          href={`/gst-reconciliation/${r.id}`}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-primary-50 text-slate-700 hover:text-primary-700 transition-colors"
-                        >
-                          View Report <ArrowRight className="w-3.5 h-3.5" />
-                        </Link>
+                        <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/gst-reconciliation/${r.id}`}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-primary-50 text-slate-700 hover:text-primary-700 transition-colors"
+                          >
+                            View Report <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                          <button
+                            onClick={(e) => handleDeleteRun(r.id, e)}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                            title="Delete run permanently"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}

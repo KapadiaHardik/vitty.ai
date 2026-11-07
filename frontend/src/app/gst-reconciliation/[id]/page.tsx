@@ -23,6 +23,7 @@ import {
   Layers,
   ChevronRight,
   MessageSquare,
+  Trash2,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -30,6 +31,7 @@ import {
   fetchGSTDiscrepancies,
   reviewGSTDiscrepancy,
   getGSTExportDownloadUrl,
+  deleteGSTRun,
 } from "@/lib/api";
 
 interface NormalizedInvoice {
@@ -169,6 +171,16 @@ export default function GSTReconciliationDetailPage({
     }
   };
 
+  const handleDeleteRun = async () => {
+    if (!confirm("Are you sure you want to permanently delete this reconciliation run?")) return;
+    try {
+      await deleteGSTRun(runId);
+      router.push("/gst-reconciliation");
+    } catch (err: any) {
+      alert(err?.message || "Failed to delete reconciliation run");
+    }
+  };
+
   useEffect(() => {
     loadRunData();
   }, [activeCategory, reviewStatusFilter, searchQuery]);
@@ -295,6 +307,10 @@ export default function GSTReconciliationDetailPage({
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 animate-pulse">
                     <Loader2 className="w-3.5 h-3.5 animate-spin" /> {run.status}
                   </span>
+                ) : run.status === "FAILED" ? (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                    <XCircle className="w-3.5 h-3.5 text-rose-600" /> Failed
+                  </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Complete
@@ -310,10 +326,17 @@ export default function GSTReconciliationDetailPage({
           <div className="flex items-center gap-3">
             <button
               onClick={loadRunData}
-              className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition-colors"
+              className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
               title="Refresh"
             >
               <RefreshCw className="w-4 h-4" />
+            </button>
+            <button
+              onClick={handleDeleteRun}
+              className="p-2.5 rounded-xl border border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
+              title="Delete this run permanently"
+            >
+              <Trash2 className="w-4 h-4" />
             </button>
             <a
               href={getGSTExportDownloadUrl(runId)}
@@ -325,6 +348,21 @@ export default function GSTReconciliationDetailPage({
             </a>
           </div>
         </div>
+
+        {/* Failure Banner */}
+        {run.status === "FAILED" && (
+          <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <XCircle className="w-5 h-5 text-rose-600 shrink-0" />
+              <div>
+                <strong>Reconciliation failed</strong>
+                <p className="text-xs text-rose-700 mt-0.5">
+                  {run.error_message || "Reconciliation could not be completed or timed out."}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Processing Notification */}
         {isProcessing && (
@@ -479,11 +517,10 @@ export default function GSTReconciliationDetailPage({
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id)}
-                className={`px-4 py-3 text-xs font-semibold border-b-2 whitespace-nowrap transition-colors cursor-pointer ${
-                  activeCategory === tab.id
+                className={`px-4 py-3 text-xs font-semibold border-b-2 whitespace-nowrap transition-colors cursor-pointer ${activeCategory === tab.id
                     ? "border-primary-600 text-primary-600"
                     : "border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300"
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>

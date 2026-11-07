@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, FileText, CheckCircle, Loader2, Send, MessageSquare, ArrowLeft } from "lucide-react";
+import { Upload, FileText, CheckCircle, Loader2, Send, MessageSquare, ArrowLeft, Trash2, XCircle } from "lucide-react";
 import Link from "next/link";
-import { fetchDocuments, uploadDocument, askQuestion } from "@/lib/api";
+import { fetchDocuments, uploadDocument, askQuestion, deleteDocument } from "@/lib/api";
 
 type DocumentStatus = "PENDING" | "PROCESSING" | "INDEXED" | "FAILED";
 
@@ -26,6 +26,7 @@ export default function DocumentsPage() {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [query, setQuery] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -36,6 +37,20 @@ export default function DocumentsPage() {
       setDocuments(data.items);
     } catch (err) {
       console.error("Failed to load documents", err);
+    }
+  };
+
+  const handleDeleteDocument = async (id: string, filename: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm(`Are you sure you want to permanently delete "${filename}"?`)) return;
+    setDeletingId(id);
+    try {
+      await deleteDocument(id);
+      await loadDocuments();
+    } catch (err: any) {
+      alert(err?.message || "Failed to delete document");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -90,7 +105,7 @@ export default function DocumentsPage() {
       case "INDEXED": return <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />;
       case "PROCESSING":
       case "PENDING": return <Loader2 className="w-4 h-4 text-primary-600 animate-spin shrink-0" />;
-      case "FAILED": return <div className="w-3.5 h-3.5 rounded-full bg-rose-500/20 border border-rose-500/60 shrink-0" />;
+      case "FAILED": return <XCircle className="w-4 h-4 text-rose-500 shrink-0" />;
     }
   };
 
@@ -141,14 +156,26 @@ export default function DocumentsPage() {
                     key={doc.id}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between group hover:bg-indigo-50/40 hover:border-indigo-200 transition-all"
+                    className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between group hover:bg-indigo-50/40 hover:border-indigo-200 transition-all gap-2"
                   >
-                    <div className="flex items-center gap-2.5 overflow-hidden">
+                    <div className="flex items-center gap-2.5 overflow-hidden flex-1 min-w-0">
                       {getStatusIcon(doc.status)}
                       <span className="truncate text-xs font-semibold text-slate-700">
                         {doc.filename}
                       </span>
                     </div>
+                    <button
+                      onClick={(e) => handleDeleteDocument(doc.id, doc.filename, e)}
+                      disabled={deletingId === doc.id}
+                      className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all cursor-pointer shrink-0 disabled:opacity-50"
+                      title="Delete permanently"
+                    >
+                      {deletingId === doc.id ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Trash2 className="w-3.5 h-3.5" />
+                      )}
+                    </button>
                   </motion.div>
                 ))
               )}

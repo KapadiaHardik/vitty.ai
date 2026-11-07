@@ -21,6 +21,14 @@ export async function uploadDocument(file: File) {
   return res.json();
 }
 
+export async function deleteDocument(documentId: string) {
+  const res = await fetch(`${API_BASE_URL}/documents/${documentId}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete document');
+  return res.json();
+}
+
 export async function askQuestion(question: string) {
   const res = await fetch(`${API_BASE_URL}/chat/`, {
     method: 'POST',
@@ -190,5 +198,16 @@ export async function manualLinkGSTInvoices(runId: string, payload: {
 
 export function getGSTExportDownloadUrl(runId: string): string {
   return `${API_BASE_URL}/gst-reconciliation/runs/${runId}/export`;
+}
+
+export async function deleteGSTRun(runId: string) {
+  const res = await fetch(`${API_BASE_URL}/gst-reconciliation/runs/${runId}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(err?.detail || 'Failed to delete reconciliation run');
+  }
+  return res.json();
 }
 
